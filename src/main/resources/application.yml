@@ -1,0 +1,50 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 811322847826-p10qeqvvjhlo4h7c3g76g14lfcfsh3pr.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/auth-service/api/v1/auth/callback/google
+          yandex:
+            client-id: 4020b6ce688640b3a40b996a54a70286
+            client-secret: 2f3fbbe782b54d8390338d5d311cf391
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: authorization_code
+            registration-id: yandex
+            scope: login:email, login:info
+            redirect-uri: http://localhost:8080/auth-service/api/v1/auth/callback/yandex
+            client-name: Yandex
+        provider:
+          yandex:
+            authorization-uri: https://oauth.yandex.ru/authorize
+            token-uri: https://oauth.yandex.ru/token
+            user-info-uri: https://login.yandex.ru/info
+            user-name-attribute: id
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/diplom
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    properties:
+     hibernate:
+       dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+application:
+  name: auth-service
+  jwt:
+    secret-key: AF958BBA8392CF55F31277A95F8082086B5094B6422D171402478DAB3A86FA0E
+    user-access-token-expiration: 3600000  # 1 час
+    user-refresh-token-expiration: 518400000 # 6 дней
+
+server:
+  port: 8080
+  servlet:
+    context-path: /auth-service/api/v1
